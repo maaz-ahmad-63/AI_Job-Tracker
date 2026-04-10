@@ -80,14 +80,8 @@ export default function AddApplicationPage() {
     }
 
     try {
-      // Convert salaryRange object to string format
-      const dataToSubmit = {
-        ...formData,
-        salaryRange: formData.salaryRange?.min || formData.salaryRange?.max 
-          ? `$${formData.salaryRange?.min || 0}k - $${formData.salaryRange?.max || 0}k`
-          : undefined
-      }
-      await createApplication(dataToSubmit)
+      // Submit formData with proper salaryRange object structure
+      await createApplication(formData)
       navigate('/dashboard')
     } catch (err: any) {
       setLocalError(err.response?.data?.message || 'Failed to create application')
