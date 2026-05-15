@@ -1,0 +1,15 @@
+{
+  "name": "Job Application Tracker",
+  "version": "1.0.0",
+  "description": "AI-powered job application tracking system",
+  "author": "Your Name",
+  "repository": "https://github.com/maaz-ahmad-63/AI_Job-Tracker",
+  "homepage": "https://job-application-tracking-alpha.vercel.app",
+  "features": [
+    "AI Job Description Parser",
+    "Smart Resume Builder",
+    "Kanban Board",
+    "Application Tracking",
+    "Secure Authentication"
+  ]
+}
