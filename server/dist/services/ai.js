@@ -5,10 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.aiService = exports.AIService = void 0;
 const openai_1 = __importDefault(require("openai"));
-// Initialize OpenAI client
+// Initialize OpenAI client and models
 const apiKey = process.env.OPENAI_API_KEY;
+const jdModel = process.env.OPENAI_JD_MODEL || process.env.OPENAI_MODEL || 'gpt-3.5-turbo';
+const resumeModel = process.env.OPENAI_RESUME_MODEL || process.env.OPENAI_MODEL || 'gpt-3.5-turbo';
 if (!apiKey) {
     console.warn('⚠️  OPENAI_API_KEY not set. AI features will not work.');
+}
+else {
+    console.log(`✅ OPENAI_API_KEY loaded (starts with: ${apiKey.substring(0, 20)}...), models -> JD: ${jdModel}, Resume: ${resumeModel}`);
 }
 const openai = apiKey ? new openai_1.default({ apiKey }) : null;
 class AIService {
@@ -53,7 +58,7 @@ Please respond with a JSON object containing:
 Only respond with valid JSON, no markdown or extra text.
       `;
             const response = await openai.chat.completions.create({
-                model: 'gpt-3.5-turbo',
+                model: jdModel,
                 messages: [
                     {
                         role: 'user',
@@ -82,7 +87,13 @@ Only respond with valid JSON, no markdown or extra text.
             };
         }
         catch (error) {
-            console.error('Error parsing job description:', error);
+            console.error('❌ Error parsing job description:', error instanceof Error ? error.message : error);
+            if (error?.status === 429) {
+                throw new Error(`OpenAI rate limit reached for model "${jdModel}". Try a different model via OPENAI_JD_MODEL or switch API key.`);
+            }
+            if (error instanceof Error && error.message.includes('401')) {
+                throw new Error('OpenAI API key is invalid or expired');
+            }
             throw error;
         }
     }
@@ -120,7 +131,7 @@ Respond with a JSON object:
 Only respond with valid JSON, no markdown or extra text.
       `;
             const response = await openai.chat.completions.create({
-                model: 'gpt-3.5-turbo',
+                model: resumeModel,
                 messages: [
                     {
                         role: 'user',
@@ -142,6 +153,9 @@ Only respond with valid JSON, no markdown or extra text.
         }
         catch (error) {
             console.error('Error generating resume bullets:', error);
+            if (error?.status === 429) {
+                throw new Error(`OpenAI rate limit reached for model "${resumeModel}". Try a different model via OPENAI_RESUME_MODEL or switch API key.`);
+            }
             throw error;
         }
     }

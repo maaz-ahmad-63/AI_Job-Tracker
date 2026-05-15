@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore, useApplicationStore } from '../lib/store'
 import { KanbanBoard } from '../components/kanban/KanbanBoard'
+import { FeaturesGrid } from '../components/MagicBento'
 import { Plus, LogOut } from 'lucide-react'
 
 export default function DashboardPage() {
@@ -89,6 +90,13 @@ export default function DashboardPage() {
 
       {/* Kanban Board */}
       <div className="max-w-full px-6 py-8">
+        {/* Features Grid - Show when no applications */}
+        {applications.length === 0 && (
+          <div className="mb-12">
+            <FeaturesGrid />
+          </div>
+        )}
+
         {isLoading ? (
           <div className="text-center py-12">
             <div className="inline-block">

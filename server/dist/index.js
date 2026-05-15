@@ -3,12 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
 const express_1 = __importDefault(require("express"));
 const config_1 = require("./config");
 const middleware_1 = require("./middleware");
 const routes_1 = require("./routes");
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 5002;
+const PORT = Number(process.env.PORT) || 5002;
+const HOST = process.env.HOST || '127.0.0.1';
 // Middleware
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -32,9 +34,9 @@ app.use(middleware_1.errorHandler);
 const startServer = async () => {
     try {
         await (0, config_1.connectDatabase)();
-        app.listen(PORT, () => {
-            console.log(`\n🚀 Server running on http://localhost:${PORT}`);
-            console.log(`📍 API base: http://localhost:${PORT}/api\n`);
+        app.listen(PORT, HOST, () => {
+            console.log(`\n🚀 Server running on http://${HOST}:${PORT}`);
+            console.log(`📍 API base: http://${HOST}:${PORT}/api\n`);
         });
     }
     catch (error) {
