@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: job-tracker-api
+    env: node
+    region: oregon
+    plan: free
+    rootDir: server
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        fromDatabase:
+          name: job-tracker-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: CLIENT_URL
+        value: https://job-application-tracking-alpha.vercel.app
