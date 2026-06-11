@@ -21,31 +21,31 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ className = '' }) =>
       label: 'AI Powered',
     },
     {
-      icon: <Zap className="w-6 h-6 text-yellow-400" />,
+      icon: <Zap className="w-6 h-6 text-cyan-400" />,
       title: 'Smart Resume Builder',
       description: 'Generate tailored resume bullet points matching job requirements using AI.',
       label: 'Optimization',
     },
     {
-      icon: <BarChart3 className="w-6 h-6 text-green-400" />,
+      icon: <BarChart3 className="w-6 h-6 text-teal-400" />,
       title: 'Track Progress',
       description: 'Visualize your job search with comprehensive statistics and status tracking.',
       label: 'Analytics',
     },
     {
-      icon: <Maximize2 className="w-6 h-6 text-purple-400" />,
+      icon: <Maximize2 className="w-6 h-6 text-blue-400" />,
       title: 'Drag & Drop Board',
       description: 'Organize applications on an interactive Kanban board by status.',
       label: 'Organization',
     },
     {
-      icon: <Shield className="w-6 h-6 text-red-400" />,
+      icon: <Shield className="w-6 h-6 text-slate-400" />,
       title: 'Secure & Private',
       description: 'Your job search data is protected with enterprise-grade security and encryption.',
       label: 'Security',
     },
     {
-      icon: <AlertCircle className="w-6 h-6 text-orange-400" />,
+      icon: <AlertCircle className="w-6 h-6 text-slate-400" />,
       title: 'Never Forget',
       description: 'Store all your applications in one place with notes and links for easy reference.',
       label: 'Database',
@@ -56,13 +56,13 @@ export const FeaturesGrid: React.FC<FeaturesGridProps> = ({ className = '' }) =>
     <div className={`w-full ${className}`}>
       <style>{`
         .features-gradient {
-          background: linear-gradient(135deg, rgba(15, 23, 42, 0.5) 0%, rgba(30, 41, 59, 0.5) 100%);
+          background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 58, 138, 0.6) 100%);
         }
       `}</style>
       <div className="features-gradient rounded-2xl p-2 mb-8">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-white mb-2">Powerful Features</h2>
-          <p className="text-gray-300">Everything you need to master your job search</p>
+          <p className="text-slate-300">Everything you need to master your job search</p>
         </div>
         <MagicBento
           cards={featureCards}
